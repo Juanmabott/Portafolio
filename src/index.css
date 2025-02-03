@@ -66,3 +66,23 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Updated custom scrollbar styles */
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 8px;
+  border: 2px solid transparent;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color:rgb(11, 55, 94) transparent;
+}
