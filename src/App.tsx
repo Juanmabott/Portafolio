@@ -13,7 +13,7 @@ function App() {
       <div className="portfolio">
         <header className="header">
           <div className="profile-image">
-            <img src="/img/pfp.jpg" alt="Foto de perfil" />
+            <img src="./img/pfp.jpg" alt="Foto de perfil" />
           </div>
           <h1>Juan Manuel</h1>
           <p>Desarrollador</p>
