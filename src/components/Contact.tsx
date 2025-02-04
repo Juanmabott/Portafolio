@@ -60,7 +60,7 @@ const Contact = () => {
               required
             />
           </div>
-          <button type="submit" className="submit-btn">
+          <button type="submit" className="btn btn-primary">
             Enviar mensaje
           </button>
         </form>

@@ -73,7 +73,7 @@ export function CarouselCustomNavigation(): JSX.Element {
       >
         <img
           key="slide-1"
-          src="./public/img/Conquista.png"
+          src="./img/Conquista.png"
           alt="image 1"
           className="h-full w-full object-cover"
         />

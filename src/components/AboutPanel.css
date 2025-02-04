@@ -1,0 +1,27 @@
+.about-panel {
+  width: 400px;
+  height: 500px;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(21,31,171,0.3));
+  backdrop-filter: blur(10px);
+  border-radius: 20px 0 0 20px;
+  box-shadow: 0 8px 32px 0 rgba(21, 31, 171, 0.37);
+  z-index: 10;
+  
+}
+
+.about-panel h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.about-panel p {
+  margin-bottom: 1rem;
+}
+
+.about-panel .close-button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
