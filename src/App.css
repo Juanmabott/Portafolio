@@ -91,22 +91,39 @@ body {
 }
 
 .header {
-  text-align: center;
-  margin-bottom: 3rem;
+  text-align: right; /* Alinear a la izquierda */
+  margin-bottom: 2rem;
+  margin-left: 20rem;
+
   position: relative;
+  display: flex;
+  align-items: center; /* Alinear verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
 }
 
 .header .profile-image {
   display: inline-block;
   vertical-align: middle;
+  margin-right: 4rem; /* Espacio entre la imagen y el texto */
+}
+
+.header .header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.header .header-text h1 {
+  margin: 0; /* Eliminar margen para alinear correctamente */
+}
+
+.header .header-text p {
+  margin: 0; /* Eliminar margen para alinear correctamente */
 }
 
 .header .btn-glass-vertical {
   position: absolute;
   top: 0;
   right: 0;
-  transform: translate(40%, -50%);
-  rotate: 90deg;
 }
 
 section {
@@ -154,10 +171,11 @@ section {
 .profile-image {
   width: 200px;
   height: 200px;
-  margin: 0 auto 2rem auto;
+  margin: 1.5rem 0 1rem -40rem;
   border-radius: 15%;
   border: 5px solid rgba(1, 200, 255, 0.58);
   overflow: hidden;
+
 }
 
 .profile-image img {
@@ -167,7 +185,7 @@ section {
 }
 
 .contact-section {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .contact-container {
@@ -303,8 +321,17 @@ section {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #1a1c2c 0%, rgb(0, 22, 84) 100%);
   z-index: -2;
+}
+
+.background-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(125% 125% at 50% 10%, #000 40%, #63e 100%);
 }
 
 .grid-pattern {
@@ -317,7 +344,7 @@ section {
     linear-gradient(to right, #4f4f4f2e 1px, transparent 1px),
     linear-gradient(to bottom, #8080800a 1px, transparent 1px);
   background-size: 14px 24px;
-  z-index: -1;
+  z-index: 0;
 }
 
 .radial-gradient {
@@ -329,5 +356,5 @@ section {
   height: 1200px;
   border-radius: 50%;
   background: radial-gradient(circle,rgba(200, 0, 0, 0.21), transparent 70%);
-  z-index: -1;
+  z-index: 0;
 }

@@ -21,14 +21,16 @@ function App() {
       </div>
       <div className="content-container">
         <div className="main-container">
-          <div className="portfolio">
+          <div className="portfolio" style={{ zIndex: 10, overflow: 'hidden' }}>
             <header className="header">
               <div className="profile-image">
                 <img src="./img/pfp.jpg" alt="Foto de perfil" />
               </div>
+              <div className="header-text">
+                <h1>Juan Manuel</h1>
+                <p>Desarrollador</p>
+              </div>
               <ButtonGlassVertical onClick={toggleAboutPanel} label="Sobre Mí" />
-              <h1>Juan Manuel</h1>
-              <p>Desarrollador</p>
             </header>
 
             <section className="projects">

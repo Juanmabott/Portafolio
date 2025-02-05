@@ -6,8 +6,8 @@
   backdrop-filter: blur(10px);
   border-radius: 20px 0 0 20px;
   box-shadow: 0 8px 32px 0 rgba(21, 31, 171, 0.37);
-  z-index: 10;
-  
+  z-index: 5; /* Ajustar z-index */
+  position: relative;
 }
 
 .about-panel h2 {

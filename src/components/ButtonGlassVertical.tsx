@@ -10,9 +10,9 @@ const ButtonGlassVertical: React.FC<ButtonGlassVerticalProps> = ({ onClick, labe
   return (
     <button 
       onClick={onClick} 
-      className="btn-glass-vertical btn-glass-vertical-rotated"
+      className="btn-glass-vertical"
     >
-      {label}
+      <span>{label}</span> {/* Añadido span para aplicar la rotación */}
     </button>
   );
 };

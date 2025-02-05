@@ -6,7 +6,7 @@ export function CarouselCustomNavigation(): JSX.Element {
   const [activeSlide, setActiveSlide] = useState(0);
 
   const slideData = [
-    { text: "Mapa informativo intergalactico de Star Wars con informacion de los planetas y relaciones entre ellos", url: "https://juanmabott.github.io/Conquista/" },
+    { text: "Un detallado mapa galáctico interactivo que muestra los planetas más importantes del universo de Star Wars, sus características principales y las conexiones hiperespaciales entre ellos. Este mapa ofrece información detallada sobre cada mundo, incluyendo su ubicación dentro de la galaxia, su relevancia en la historia, facciones que lo controlan y su relación con otros planetas.", url: "https://juanmabott.github.io/Conquista/" },
     { text: "Información del slide 2", url: "https://example.com/2" },
     { text: "Información del slide 3", url: "https://example.com/3" }
   ];
