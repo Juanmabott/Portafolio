@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <div className="background-container">
-        <div className="grid-pattern"></div>
+        <div className="hexagon-pattern"></div>
         <div className="radial-gradient"></div>
       </div>
       <div className="content-container">

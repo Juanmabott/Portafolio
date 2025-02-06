@@ -1,7 +1,7 @@
 .about-panel {
   width: 400px;
   height: 500px;
-  padding: 2rem;
+  padding: 3rem;
   background: linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(21,31,171,0.3));
   backdrop-filter: blur(10px);
   border-radius: 20px 0 0 20px;
