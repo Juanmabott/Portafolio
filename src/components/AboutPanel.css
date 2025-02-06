@@ -8,6 +8,14 @@
   box-shadow: 0 8px 32px 0 rgba(21, 31, 171, 0.37);
   z-index: 5; /* Ajustar z-index */
   position: relative;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.about-panel.open {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 .about-panel h2 {
