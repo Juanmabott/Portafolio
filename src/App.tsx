@@ -5,6 +5,9 @@ import Carrusel from './components/Carrusel';
 import { useState } from 'react';
 import ButtonGlassVertical from './components/ButtonGlassVertical';
 import AboutPanel from './components/AboutPanel';
+import ProfileImage from './components/ProfileImage';
+import Background from './components/Background';
+import ModalPortal from './components/ModalPortal';
 
 function App() {
   const [isAboutPanelOpen, setIsAboutPanelOpen] = useState(false);
@@ -15,17 +18,12 @@ function App() {
 
   return (
     <>
-      <div className="background-container">
-        <div className="hexagon-pattern"></div>
-        <div className="radial-gradient"></div>
-      </div>
+      <Background />
       <div className="content-container">
         <div className="main-container">
           <div className="portfolio" style={{ zIndex: 10, overflow: 'hidden' }}>
-            <header className="header">
-              <div className="profile-image">
-                <img src="./img/pfp.jpg" alt="Foto de perfil" />
-              </div>
+            <header className="header max-w-screen-2xl mx-auto px-5 py-6">
+              <ProfileImage />
               <div className="header-text">
                 <h1>Juan Manuel</h1>
                 <p>Desarrollador</p>
@@ -42,11 +40,11 @@ function App() {
 
             <Contact />
           </div>
-          <div className="about-panel-container">
-            {isAboutPanelOpen && (
+          {isAboutPanelOpen && (
+            <ModalPortal>
               <AboutPanel closePanel={toggleAboutPanel} />
-            )}
-          </div>
+            </ModalPortal>
+          )}
         </div>
       </div>
     </>

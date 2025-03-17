@@ -23,6 +23,9 @@ const AboutPanel: React.FC<AboutPanelProps> = ({ closePanel }) => {
           setTimeout(closePanel, 300); // Wait for the animation to finish
         }} label="Cerrar"/>
       </div>
+      <div className="mobile-message">
+        <p>Para una mejor experiencia, visita esta página en una resolución mayor.</p>
+      </div>
     </div>
   );
 };

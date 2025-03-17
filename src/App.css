@@ -5,49 +5,18 @@ body {
   min-height: 100vh;
   color: white;
   position: relative;
-  /* Cambiado para permitir scroll vertical */
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 #root {
-  max-width: 1280px;
-  min-width: 320px;
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
-  padding: 2em;
+  padding: 1em;
 }
 
 .read-the-docs {
@@ -77,7 +46,39 @@ body {
   backdrop-filter: blur(10px);
   border-radius: 20px;
   box-shadow: 0 8px 32px 0 rgba(21, 31, 171, 0.37);
-  z-index: 1;
+  z-index: -50; /* Ensure it is below the AboutPanel */
+  min-width: 500px; /* Establece el ancho mínimo */
+  max-width: 800px; /* Establece el ancho máximo */
+}
+
+@media (max-width: 1000px) {
+  .portfolio {
+    min-width: 100%; /* Ajusta el ancho para resoluciones más pequeñas */
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio {
+    max-width: 80%; /* Ajusta el ancho para resoluciones más pequeñas */
+  }
+}
+
+@media (max-width: 500px) {
+  .portfolio {
+    max-width: 60%; /* Ajusta el ancho para resoluciones más pequeñas */
+  }
+  .header-text {
+    margin-top: 13rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .portfolio {
+    min-width: 100%; /* Ajusta el ancho para resoluciones más pequeñas */
+  }
+  .header-text {
+    margin-top: 10rem;
+  }
 }
 
 .about-panel-container {
@@ -86,44 +87,66 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 0;
-
-  
 }
 
 .header {
-  text-align: right; /* Alinear a la izquierda */
-  margin-bottom: 2rem;
-  margin-left: 20rem;
-
-  position: relative;
+  position: relative; /* Necesario para la posición absoluta de la imagen */
   display: flex;
-  align-items: center; /* Alinear verticalmente */
-  justify-content: center; /* Centrar horizontalmente */
-}
-
-.header .profile-image {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 4rem; /* Espacio entre la imagen y el texto */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el texto verticalmente */
+  margin: 5rem 0;
 }
 
 .header .header-text {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centra el texto horizontalmente */
+  margin-left: 0; /* Eliminar margen izquierdo */
 }
 
-.header .header-text h1 {
-  margin: 0; /* Eliminar margen para alinear correctamente */
-}
-
+.header .header-text h1,
 .header .header-text p {
   margin: 0; /* Eliminar margen para alinear correctamente */
 }
 
 .header .btn-glass-vertical {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 50%;
+  right: 1rem; /* Ajusta la posición horizontal */
+  transform: translateY(-50%); /* Ajusta para centrar verticalmente */
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Cambia a columna en resoluciones bajas */
+  }
+
+  .header .header-text {
+    margin-left: 3rem; /* Eliminar margen izquierdo */
+    margin-top: 6rem; /* Añadir margen superior */
+  }
+
+  .header .btn-glass-vertical {
+    position: static; /* Cambia la posición a estática */
+    margin-top: 1rem; /* Añadir margen superior */
+  }
+}
+
+@media (max-width: 500px) {
+  .header {
+    flex-direction: column; /* Cambia a columna en resoluciones bajas */
+  }
+
+  .header .header-text {
+    margin-left: 0; /* Eliminar margen izquierdo */
+    margin-top: 1rem; /* Añadir margen superior */
+  }
+
+  .profile-image {
+    position: static; /* Cambia la posición a estática */
+    margin-bottom: 1rem; /* Añadir margen inferior */
+    transform: none; /* Eliminar transformación */
+  }
 }
 
 section {
@@ -169,19 +192,33 @@ section {
 }
 
 .profile-image {
-  width: 200px;
-  height: 200px;
-  margin: 1.5rem 0 1rem -40rem;
+  width: 100%;
+  max-width: 200px; /* Limita el ancho máximo */
+  height: auto; /* Mantiene la proporción de la imagen */
+  margin: 1rem 0 0.5rem 0rem; /* Ajusta el margen */
   border-radius: 15%;
   border: 5px solid rgba(1, 200, 255, 0.58);
   overflow: hidden;
-
+  position: absolute; /* Posición absoluta */
+  top: 50%; /* Centra verticalmente */
+  left: 1rem; /* Ajusta la posición horizontal */
+  transform: translateY(-50%); /* Ajusta para centrar verticalmente */
 }
 
 .profile-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .profile-image {
+    position: static; /* Cambia la posición a estática */
+    margin-bottom: 1rem; /* Añadir margen inferior */
+    transform: none; /* Eliminar transformación */
+  }
 }
 
 .contact-section {
@@ -191,7 +228,7 @@ section {
 .contact-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 0rem;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -310,74 +347,10 @@ section {
   transform: translateY(0);
 }
 
-.skill-item {
-  padding: 1rem;
-  min-width: 120px;
-}
 
-.background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -2;
-}
 
-.background-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-  background: radial-gradient(50% 200% at 50% 10%, #000 40%, #6363fd 200%);
-}
 
-.hexagon-pattern {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    repeating-linear-gradient(
-      60deg,
-      rgba(79, 79, 79, 0.18) 0px,
-      rgba(79, 79, 79, 0.18) 25%,
-      transparent 25%,
-      transparent 75%,
-      rgba(79, 79, 79, 0.18) 75%
-    ),
-    repeating-linear-gradient(
-      120deg,
-      rgba(79, 79, 79, 0.18) 0px,
-      rgba(79, 79, 79, 0.18) 25%,
-      transparent 25%,
-      transparent 75%,
-      rgba(79, 79, 79, 0.18) 75%
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(79, 79, 79, 0.18) 0px,
-      rgba(79, 79, 79, 0.18) 25%,
-      transparent 25%,
-      transparent 75%,
-      rgba(79, 79, 79, 0.18) 75%
-    );
-  background-size: 100px 173.2px; /* Ancho del hexágono y altura (sqrt(3)*50) */
-  z-index: 0;
-  opacity: 0.3;
-}
 
-.radial-gradient {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1200px;
-  height: 1200px;
-  border-radius: 50%;
-  background: radial-gradient(circle,rgba(200, 0, 0, 0.21), transparent 70%);
-  z-index: 0;
-}
+
+
+
