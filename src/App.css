@@ -39,11 +39,11 @@ body {
 
 .portfolio {
   flex: 1;
-  max-width: 80%; /* Ajusta el ancho para que ocupe más espacio */
+  max-width: 90%; /* Ajusta el ancho para que ocupe más espacio */
   margin-right: 20px; /* Ajusta la separación */
   position: relative;
   background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0px);
   border-radius: 20px;
   box-shadow: 0 8px 32px 0 rgba(21, 31, 171, 0.37);
   z-index: -50; /* Ensure it is below the AboutPanel */
