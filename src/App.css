@@ -25,47 +25,48 @@ body {
 
 .content-container {
   display: flex;
-  justify-content: center; /* Centra el contenido horizontalmente */
+  justify-content: center;
   align-items: flex-start;
   padding: 1rem;
 }
 
 .main-container {
   display: flex;
-  justify-content: center; /* Centra el contenido horizontalmente */
+  justify-content: center;
   align-items: flex-start;
   width: 100%;
 }
 
 .portfolio {
   flex: 1;
-  max-width: 90%; /* Ajusta el ancho para que ocupe más espacio */
-  margin-right: 20px; /* Ajusta la separación */
+  max-width: 90%;
+  margin-right: 20px;
   position: relative;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(0px);
+  background: rgba(0, 40, 80, 0.4); /* Color más oscuro y con menos opacidad */
+  backdrop-filter: blur(10px);
   border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(21, 31, 171, 0.37);
-  z-index: -50; /* Ensure it is below the AboutPanel */
-  min-width: 500px; /* Establece el ancho mínimo */
-  max-width: 800px; /* Establece el ancho máximo */
+  box-shadow: 0 8px 32px 0 rgba(0, 100, 255, 0.3); /* Sombra más azulada */
+  border: 1px solid rgba(100, 200, 255, 0.1); /* Borde sutil */
+  z-index: 10;
+  min-width: 500px;
+  max-width: 800px;
 }
 
 @media (max-width: 1000px) {
   .portfolio {
-    min-width: 100%; /* Ajusta el ancho para resoluciones más pequeñas */
+    min-width: 100%;
   }
 }
 
 @media (max-width: 768px) {
   .portfolio {
-    max-width: 80%; /* Ajusta el ancho para resoluciones más pequeñas */
+    max-width: 80%;
   }
 }
 
 @media (max-width: 500px) {
   .portfolio {
-    max-width: 60%; /* Ajusta el ancho para resoluciones más pequeñas */
+    max-width: 60%;
   }
   .header-text {
     margin-top: 13rem;
@@ -74,7 +75,7 @@ body {
 
 @media (max-width: 420px) {
   .portfolio {
-    min-width: 100%; /* Ajusta el ancho para resoluciones más pequeñas */
+    min-width: 100%;
   }
   .header-text {
     margin-top: 10rem;
@@ -82,7 +83,7 @@ body {
 }
 
 .about-panel-container {
-  max-width: 0px; /* Ajusta el ancho para que ocupe más espacio */
+  max-width: 0px;
   position: static;
   display: flex;
   flex-direction: column;
@@ -90,67 +91,88 @@ body {
 }
 
 .header {
-  position: relative; /* Necesario para la posición absoluta de la imagen */
+  position: relative;
   display: flex;
-  justify-content: center; /* Centra el contenido horizontalmente */
-  align-items: center; /* Centra el texto verticalmente */
+  justify-content: center;
+  align-items: center;
   margin: 5rem 0;
 }
 
 .header .header-text {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra el texto horizontalmente */
-  margin-left: 0; /* Eliminar margen izquierdo */
+  align-items: center;
+  margin-left: 0;
 }
 
 .header .header-text h1,
 .header .header-text p {
-  margin: 0; /* Eliminar margen para alinear correctamente */
+  margin: 0;
+}
+
+.header .header-text h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 15px rgba(0, 150, 255, 0.7); /* Añadido resplandor al texto */
+}
+
+.header .header-text p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  letter-spacing: 1px;
 }
 
 .header .btn-glass-vertical {
   position: absolute;
   top: 50%;
-  right: 1rem; /* Ajusta la posición horizontal */
-  transform: translateY(-50%); /* Ajusta para centrar verticalmente */
+  right: 1rem;
+  transform: translateY(-50%);
 }
 
 @media (max-width: 768px) {
   .header {
-    flex-direction: column; /* Cambia a columna en resoluciones bajas */
+    flex-direction: column;
   }
 
   .header .header-text {
-    margin-left: 3rem; /* Eliminar margen izquierdo */
-    margin-top: 6rem; /* Añadir margen superior */
+    margin-left: 3rem;
+    margin-top: 6rem;
   }
 
   .header .btn-glass-vertical {
-    position: static; /* Cambia la posición a estática */
-    margin-top: 1rem; /* Añadir margen superior */
+    position: static;
+    margin-top: 1rem;
   }
 }
 
 @media (max-width: 500px) {
   .header {
-    flex-direction: column; /* Cambia a columna en resoluciones bajas */
+    flex-direction: column;
   }
 
   .header .header-text {
-    margin-left: 0; /* Eliminar margen izquierdo */
-    margin-top: 1rem; /* Añadir margen superior */
+    margin-left: 0;
+    margin-top: 1rem;
   }
 
   .profile-image {
-    position: static; /* Cambia la posición a estática */
-    margin-bottom: 1rem; /* Añadir margen inferior */
-    transform: none; /* Eliminar transformación */
+    position: static;
+    margin-bottom: 1rem;
+    transform: none;
   }
 }
 
 section {
   margin-bottom: 4rem;
+}
+
+section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 150, 255, 0.5); /* Añadido resplandor al título */
+  letter-spacing: 1px;
 }
 
 .projects-grid {
@@ -161,15 +183,16 @@ section {
 
 .project-card {
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(100, 200, 255, 0.2); /* Borde más azulado */
+  background: rgba(0, 50, 100, 0.2); /* Fondo más azulado */
   backdrop-filter: blur(5px);
   border-radius: 8px;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.3s;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 150, 255, 0.3); /* Sombra al hacer hover */
 }
 
 .skills ul {
@@ -181,10 +204,10 @@ section {
 }
 
 .skills li {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 50, 100, 0.2); /* Fondo más azulado */
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(100, 200, 255, 0.2); /* Borde más azulado */
 }
 
 .contact {
@@ -193,16 +216,17 @@ section {
 
 .profile-image {
   width: 100%;
-  max-width: 200px; /* Limita el ancho máximo */
-  height: auto; /* Mantiene la proporción de la imagen */
-  margin: 1rem 0 0.5rem 0rem; /* Ajusta el margen */
+  max-width: 200px;
+  height: auto;
+  margin: 1rem 0 0.5rem 0rem;
   border-radius: 15%;
-  border: 5px solid rgba(1, 200, 255, 0.58);
+  border: 5px solid rgba(0, 150, 255, 0.4); /* Borde más azulado y menos intenso */
   overflow: hidden;
-  position: absolute; /* Posición absoluta */
-  top: 50%; /* Centra verticalmente */
-  left: 1rem; /* Ajusta la posición horizontal */
-  transform: translateY(-50%); /* Ajusta para centrar verticalmente */
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.3); /* Sombra azulada */
 }
 
 .profile-image img {
@@ -215,9 +239,9 @@ section {
 
 @media (max-width: 768px) {
   .profile-image {
-    position: static; /* Cambia la posición a estática */
-    margin-bottom: 1rem; /* Añadir margen inferior */
-    transform: none; /* Eliminar transformación */
+    position: static;
+    margin-bottom: 1rem;
+    transform: none;
   }
 }
 
@@ -240,6 +264,16 @@ section {
   margin-bottom: 2rem;
 }
 
+.contact-info a {
+  color: rgba(150, 220, 255, 1); /* Enlaces más brillantes */
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.contact-info a:hover {
+  color: white;
+  text-shadow: 0 0 10px rgba(150, 220, 255, 0.8); /* Brillo al hover */
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -250,11 +284,19 @@ section {
 .form-group textarea {
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(100, 200, 255, 0.3); /* Borde más azulado */
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 30, 60, 0.2); /* Fondo más oscuro y azulado */
   color: white;
   backdrop-filter: blur(5px);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: rgba(0, 150, 255, 0.6);
+  box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
 }
 
 .form-group textarea {
@@ -262,10 +304,10 @@ section {
   resize: vertical;
 }
 
-.submit-btn {
+.btn-primary {
   padding: 0.8rem 2rem;
-  background: rgba(1, 200, 255, 0.58);
-  border: none;
+  background: rgba(0, 120, 220, 0.7); /* Azul más saturado */
+  border: 1px solid rgba(100, 200, 255, 0.3);
   border-radius: 8px;
   color: white;
   font-weight: bold;
@@ -273,9 +315,10 @@ section {
   transition: all 0.3s ease;
 }
 
-.submit-btn:hover {
-  background: rgba(1, 200, 255, 0.8);
+.btn-primary:hover {
+  background: rgba(0, 150, 255, 0.8);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 150, 255, 0.3);
 }
 
 .skills-section {
@@ -283,7 +326,8 @@ section {
 }
 
 .skills-container {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 30, 60, 0.2); /* Fondo más oscuro y azulado */
+  border: 1px solid rgba(100, 200, 255, 0.1); /* Borde sutil */
   border-radius: 16px;
   padding: 2rem;
   margin: 2rem auto;
@@ -302,17 +346,18 @@ section {
   transition: all 0.3s ease;
   padding: 0.5rem;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 40, 80, 0.3); /* Fondo más oscuro */
+  border: 1px solid rgba(100, 200, 255, 0.1); /* Borde sutil */
 }
 
 .skill-item:hover {
   transform: translateY(-5px) scale(1.1);
-  background: rgba(1, 200, 255, 0.2);
-  box-shadow: 0 4px 10px rgb(238, 255, 80);
+  background: rgba(0, 100, 200, 0.3); /* Fondo más brillante */
+  box-shadow: 0 4px 15px rgba(0, 150, 255, 0.5); /* Sombra azulada */
 }
 
 .skill-item img {
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+  filter: drop-shadow(0 0 2px rgba(0, 150, 255, 0.5));
 }
 
 .skill-content {
@@ -332,6 +377,7 @@ section {
 .skill-name {
   font-size: 0.9rem;
   font-weight: 500;
+  color: white;
 }
 
 .skill-level {

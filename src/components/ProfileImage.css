@@ -1,15 +1,22 @@
 .profile-image {
   width: 100%;
-  max-width: 200px; /* Limita el ancho máximo */
-  height: auto; /* Mantiene la proporción de la imagen */
-  margin: 1rem 0 0rem; /* Ajusta el margen */
+  max-width: 200px;
+  height: auto;
+  margin: 1rem 0 0rem;
   border-radius: 15%;
-  border: 5px solid rgba(1, 200, 255, 0.58);
+  border: 3px solid rgba(0, 150, 255, 0.4); /* Borde más sutil y azulado */
   overflow: hidden;
   display: flex;
-  justify-content: star; /* Centra horizontalmente */
-  align-items: start; /* Centra verticalmente */
-  min-width: 100px; /* Limita el ancho mínimo */
+  justify-content: start;
+  align-items: start;
+  min-width: 100px;
+  box-shadow: 0 0 20px rgba(0, 120, 255, 0.3); /* Añadido efecto de resplandor */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(0, 150, 255, 0.5); /* Resplandor más intenso al hover */
 }
 
 .profile-image img {
@@ -18,6 +25,11 @@
   object-fit: cover;
   display: flex;
   align-items: start;
+  transition: filter 0.3s ease;
+}
+
+.profile-image:hover img {
+  filter: brightness(1.1);
 }
 
 

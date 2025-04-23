@@ -12,9 +12,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 1; /* Ensure it is behind other content */
+  z-index: 1;
   height: 100%;
   width: 100%;
+  background: linear-gradient(135deg, rgba(0, 20, 50, 0.5) 0%, rgba(0, 0, 0, 0.2) 100%);
 }
 
 .hexagon-pattern {
@@ -26,31 +27,31 @@
   background: 
     repeating-linear-gradient(
       60deg,
-      rgba(79, 79, 79, 0.18) 0px,
-      rgba(79, 79, 79, 0.18) 25%,
+      rgba(100, 200, 255, 0.05) 0px,
+      rgba(100, 200, 255, 0.05) 25%,
       transparent 25%,
       transparent 75%,
-      rgba(79, 79, 79, 0.18) 75%
+      rgba(100, 200, 255, 0.05) 75%
     ),
     repeating-linear-gradient(
       120deg,
-      rgba(79, 79, 79, 0.18) 0px,
-      rgba(79, 79, 79, 0.18) 25%,
+      rgba(100, 200, 255, 0.05) 0px,
+      rgba(100, 200, 255, 0.05) 25%,
       transparent 25%,
       transparent 75%,
-      rgba(79, 79, 79, 0.18) 75%
+      rgba(100, 200, 255, 0.05) 75%
     ),
     repeating-linear-gradient(
       0deg,
-      rgba(79, 79, 79, 0.18) 0px,
-      rgba(79, 79, 79, 0.18) 25%,
+      rgba(100, 200, 255, 0.05) 0px,
+      rgba(100, 200, 255, 0.05) 25%,
       transparent 25%,
       transparent 75%,
-      rgba(79, 79, 79, 0.18) 75%
+      rgba(100, 200, 255, 0.05) 75%
     );
-  background-size: 100px 173.2px; /* Ancho del hexágono y altura (sqrt(3)*50) */
-  z-index: 2; /* Se incrementa el z-index para que sean visibles */
-  opacity: 0.3;
+  background-size: 100px 173.2px;
+  z-index: 2;
+  opacity: 0.5;
 }
 
 .radial-gradient {
@@ -58,63 +59,44 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  border-radius: 90%;
-  background: radial-gradient(circle,rgba(200, 0, 0, 0.21), transparent 100%);
+  width: 150%;
+  height: 150%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 120, 255, 0.1), transparent 70%);
   z-index: 0;
+  pointer-events: none;
 }
 
 @media (max-width: 1000px) {
   .background-container::before {
-    background: radial-gradient(50% 200% at 50% 10%, #000 40%, #6363fd 150%);
+    background: linear-gradient(135deg, rgba(0, 20, 50, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%);
   }
 
   .radial-gradient {
-    width: 800px;
-    height: 800px;
+    width: 200%;
+    height: 200%;
+    opacity: 0.8;
   }
 }
 
 @media (max-width: 768px) {
   .background-container::before {
-    background: radial-gradient(50% 200% at 50% 10%, #000 40%, #6363fd 120%);
+    background: linear-gradient(135deg, rgba(0, 20, 50, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%);
   }
 
   .radial-gradient {
-    width: 700px;
-    height: 700px;
+    width: 250%;
+    height: 250%;
   }
 }
 
 @media (max-width: 500px) {
-  .background-container::before {
-    background: radial-gradient(50% 200% at 50% 10%, #000 40%, #6363fd 100%);
+  .hexagon-pattern {
+    opacity: 0.3;
   }
 
   .radial-gradient {
-    width: 600px;
-    height: 600px;
-  }
-}
-
-@media (max-width: 420px) {
-  .background-container::before {
-    background: radial-gradient(50% 200% at 50% 10%, #000 40%, #6363fd 80%);
-  }
-
-  .radial-gradient {
-    width: 500px;
-    height: 500px;
-  }
-}
-
-@media (max-width: 320px) {
-  .background-container::before {
-    background: radial-gradient(50% 200% at 50% 10%, #000 40%, #6363fd 60%);
-  }
-
-  .radial-gradient {
-    width: 400px;
-    height: 400px;
+    width: 300%;
+    height: 300%;
   }
 }

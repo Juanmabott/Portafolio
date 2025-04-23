@@ -5,13 +5,14 @@ import Iridescence from './Iridescence';
 const Background: React.FC = () => {
   return (
     <div className="background-container">
-      
       <Iridescence
-        color={[0,0.5, 1]}
-        mouseReact={false}
-        amplitude={0.1}
-        speed={1.0}
+        color={[0.1, 0.5, 0.9]} 
+        mouseReact={true}
+        amplitude={0.15}
+        speed={0.8}
       />
+      <div className="hexagon-pattern"></div>
+      <div className="radial-gradient"></div>
     </div>
   );
 };
