@@ -1,5 +1,4 @@
 import './App.css';
-import Contact from './components/Contact';
 import Skills from './components/Skills';
 import Carrusel from './components/Carrusel';
 import { useState } from 'react';
@@ -38,7 +37,6 @@ function App() {
 
             <Skills />
 
-            <Contact />
           </div>
           {isAboutPanelOpen && (
             <ModalPortal>

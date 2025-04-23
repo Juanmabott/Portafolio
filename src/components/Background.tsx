@@ -13,6 +13,7 @@ const Background: React.FC = () => {
       />
       <div className="hexagon-pattern"></div>
       <div className="radial-gradient"></div>
+      
     </div>
   );
 };
