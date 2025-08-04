@@ -1,28 +1,28 @@
-/* Estilos base para resoluciones altas (sin media query) se mantienen como antes */
+/* Estilos base - Panel como columna a la derecha */
 .about-panel {
   width: 400px;
-  height: 500px;
-  padding: 3rem;
-  background: rgba(0, 30, 60, 0.6); /* Color más oscuro y azulado para armonizar */
+  height: fit-content;
+  max-height: 600px;
+  padding: 2rem;
+  background: rgba(0, 30, 60, 0.6);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  border: 1px solid rgba(100, 200, 255, 0.1); /* Borde sutil azulado */
-  box-shadow: 0 8px 32px 0 rgba(0, 100, 255, 0.3); /* Sombra azulada */
-  position: fixed; 
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%) translateX(100%);
-  z-index: 1100;
+  border: 1px solid rgba(100, 200, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 100, 255, 0.3);
+  position: static;
+  z-index: 10;
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
   opacity: 0;
+  transform: translateX(10px);
   color: white;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 .about-panel.open {
-  transform: translateY(-50%) translateX(0);
   opacity: 1;
+  transform: translateX(0);
 }
 
 .about-panel h2 {
@@ -54,37 +54,56 @@
   transform: none;
 }
 
-@media (max-width: 600px) {
+/* Resoluciones muy altas - Layout completo de 3 columnas */
+@media (min-width: 1500px) {
   .about-panel {
-    width: 90%;
-    height: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
+    width: 420px;
+    padding: 2.5rem;
   }
 }
 
-@media (max-width: 768px) {
+/* Resoluciones altas - Layout de 3 columnas */
+@media (min-width: 1200px) and (max-width: 1499px) {
   .about-panel {
-    width: 90%;
-    height: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    border-radius: 20px;
-    position: fixed;
-    z-index: 100;
+    width: 380px;
     padding: 2rem;
   }
+}
+
+/* Resoluciones medias - Panel se oculta o se coloca debajo */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
   
-  .about-panel.open {
-    transform: translate(-50%, -50%) scale(1);
+  .about-panel {
+    width: 90%;
+    max-width: 600px;
+    margin-top: 2rem;
+    order: 3; /* Aparece después del portfolio */
+  }
+}
+
+/* Resoluciones pequeñas - Layout vertical */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .about-panel {
+    width: 95%;
+    max-width: 500px;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    order: 3;
   }
 
   .mobile-message {
     display: block;
-    background: rgba(0, 120, 255, 0.2); /* Fondo azul más sutil */
+    background: rgba(0, 120, 255, 0.2);
     color: white;
     padding: 1rem;
     border-radius: 10px;
@@ -92,7 +111,7 @@
     font-size: 0.9rem;
     margin-top: 2rem;
     animation: fadeIn 0.5s ease-in-out;
-    border: 1px solid rgba(100, 200, 255, 0.2); /* Borde sutil */
+    border: 1px solid rgba(100, 200, 255, 0.2);
   }
   
   .about-panel .close-button {
@@ -102,28 +121,23 @@
   }
 }
 
-@media (max-width: 1440px) {
+/* Resoluciones muy pequeñas - Layout vertical optimizado */
+@media (max-width: 500px) {
   .about-panel {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0;
+    width: 98%;
+    max-width: 400px;
+    padding: 1rem;
+    margin-top: 0.5rem;
   }
-  .about-panel.open {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+  
+  .about-panel h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
-}
-
-@media (min-width: 1500px) {
-  .about-panel {
-    right: calc((92vw - 1500px) / 2 + 20px);
-  }
-  .about-panel.open {
-    transform: translateY(-50%) translateX(0);
+  
+  .about-panel p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
   }
 }
 

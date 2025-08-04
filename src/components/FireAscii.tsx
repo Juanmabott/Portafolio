@@ -89,8 +89,8 @@ const FireAscii = () => {
         lineHeight: window.innerWidth >= 1200 ? '8px' : 
                     window.innerWidth >= 768 ? '7px' : 
                     window.innerWidth >= 500 ? '6px' : '5px',
-        color: 'black',
-        background: 'white',
+        color: 'white',
+        background: '#0d5e9b',
         padding: window.innerWidth >= 768 ? '10px' : '5px',
         borderRadius: '10px',
         userSelect: 'none',

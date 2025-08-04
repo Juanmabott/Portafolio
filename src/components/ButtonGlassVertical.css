@@ -33,17 +33,12 @@
 
 .btn-glass-vertical:hover {
   background: rgba(0, 150, 255, 0.3); /* Fondo más brillante al hover */
-  transform: translateY(-2px);
   box-shadow: 0px 6px 15px rgba(0, 150, 255, 0.4); /* Sombra más intensa */
 }
 
 @media (max-width: 1000px) {
-  .btn-glass-vertical {
-    margin-top: 7rem;
-  }
-  
-  /* Reset margin for close button */
+  /* Reset margin for mobile - controlled by App.css */
   .close-button .btn-glass-vertical {
-    margin-top: 0;
+    margin-top: auto;
   }
 }
