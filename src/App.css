@@ -35,6 +35,30 @@ body {
   justify-content: center;
   align-items: flex-start;
   width: 100%;
+  gap: 1rem;
+}
+
+/* Estilos para FireAscii responsive */
+.main-container > *:first-child {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .main-container {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    gap: 0.2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .main-container {
+    justify-content: center;
+  }
 }
 
 .portfolio {
@@ -48,37 +72,44 @@ body {
   box-shadow: 0 8px 32px 0 rgba(0, 100, 255, 0.3); /* Sombra más azulada */
   border: 1px solid rgba(100, 200, 255, 0.1); /* Borde sutil */
   z-index: 10;
-  min-width: 500px;
+  min-width: 600px; /* Aumentado para mejor legibilidad */
   max-width: 800px;
+}
+
+@media (max-width: 1200px) {
+  .portfolio {
+    min-width: 500px;
+    margin-right: 10px;
+  }
 }
 
 @media (max-width: 1000px) {
   .portfolio {
-    min-width: 100%;
+    min-width: 450px;
+    margin-right: 5px;
   }
 }
 
 @media (max-width: 768px) {
   .portfolio {
-    max-width: 80%;
+    max-width: 85%;
+    min-width: 400px;
+    margin-right: 0;
   }
 }
 
 @media (max-width: 500px) {
   .portfolio {
-    max-width: 60%;
-  }
-  .header-text {
-    margin-top: 13rem;
+    max-width: 95%;
+    min-width: 350px;
   }
 }
 
 @media (max-width: 420px) {
   .portfolio {
+    max-width: 100%;
     min-width: 100%;
-  }
-  .header-text {
-    margin-top: 10rem;
+    margin-right: 0;
   }
 }
 
@@ -133,27 +164,38 @@ body {
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
+    margin: 2rem 0;
   }
 
   .header .header-text {
-    margin-left: 3rem;
-    margin-top: 6rem;
+    margin-left: 0;
+    margin-top: 0;
+    text-align: center;
   }
 
   .header .btn-glass-vertical {
     position: static;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
   }
 }
 
 @media (max-width: 500px) {
   .header {
     flex-direction: column;
+    margin: 1.5rem 0;
   }
 
   .header .header-text {
     margin-left: 0;
-    margin-top: 1rem;
+    margin-top: 0;
+  }
+
+  .header .header-text h1 {
+    font-size: 2rem;
+  }
+
+  .header .header-text p {
+    font-size: 1rem;
   }
 
   .profile-image {

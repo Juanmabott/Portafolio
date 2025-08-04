@@ -7,6 +7,7 @@ import AboutPanel from './components/AboutPanel';
 import ProfileImage from './components/ProfileImage';
 import Background from './components/Background';
 import ModalPortal from './components/ModalPortal';
+import FireAscii from './components/FireAscii';
 
 function App() {
   const [isAboutPanelOpen, setIsAboutPanelOpen] = useState(false);
@@ -20,6 +21,7 @@ function App() {
       <Background />
       <div className="content-container">
         <div className="main-container">
+          <FireAscii />
           <div className="portfolio" style={{ zIndex: 10, overflow: 'hidden' }}>
             <header className="header max-w-screen-2xl mx-auto px-5 py-6">
               <ProfileImage />
