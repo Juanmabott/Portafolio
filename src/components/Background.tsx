@@ -11,7 +11,6 @@ const Background: React.FC = () => {
         amplitude={0.15}
         speed={0.8}
       />
-      <div className="hexagon-pattern"></div>
       <div className="radial-gradient"></div>
       
     </div>
