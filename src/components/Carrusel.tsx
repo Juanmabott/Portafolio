@@ -89,13 +89,10 @@ export function CarouselCustomNavigation(): JSX.Element {
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               <img
-                src={images[index] || project.image || "./img/Conquista.png"}
+                src={images[index] || project.image }
                 alt={project.alt}
                 className="h-full w-full object-cover"
-                onError={(e) => {
-                  // Fallback to Conquista image if Microlink/local image doesn't exist
-                  (e.target as HTMLImageElement).src = "./img/Conquista.png";
-                }}
+                
               />
               
               {/* Project Title Badge */}
