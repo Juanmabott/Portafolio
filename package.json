@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "homepage": "https://Juanmabott.github.io/Portafolio",
   "dependencies": {
     "@microlink/react": "^5.5.23",
     "@tailwindcss/vite": "^4.1.16",

@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [    tailwindcss(),
-react()],
+  // When deploying to GitHub Pages the `base` should be the repository name
+  // e.g. if publishing to https://<user>.github.io/Portafolio/ set base to '/Portafolio/'
+  base: '/Portafolio/',
+  plugins: [tailwindcss(), react()],
 })
