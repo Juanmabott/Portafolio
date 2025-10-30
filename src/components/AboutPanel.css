@@ -1,28 +1,45 @@
-/* Estilos base - Panel como columna a la derecha */
+/* Modal backdrop */
+.about-backdrop {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+  z-index: 200;
+}
+
+.about-backdrop.open {
+  opacity: 1;
+}
+
+/* Estilos base - Panel modal centrado */
 .about-panel {
   width: 400px;
-  height: fit-content;
-  max-height: 600px;
+  height: auto;
+  max-height: 80vh;
   padding: 2rem;
-  background: rgba(0, 30, 60, 0.6);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 1px solid rgba(100, 200, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 100, 255, 0.3);
-  position: static;
-  z-index: 10;
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  background: rgba(0, 30, 60, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(100, 200, 255, 0.12);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  z-index: 210;
+  transition: transform 0.28s cubic-bezier(.2,.9,.2,1), opacity 0.25s ease-out;
   opacity: 0;
-  transform: translateX(10px);
   color: white;
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .about-panel.open {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate(-50%, -50%);
 }
 
 .about-panel h2 {
@@ -51,7 +68,6 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  transform: none;
 }
 
 /* Resoluciones muy altas - Layout completo de 3 columnas */
@@ -80,8 +96,10 @@
   .about-panel {
     width: 90%;
     max-width: 600px;
-    margin-top: 2rem;
-    order: 3; /* Aparece después del portfolio */
+    padding: 1.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -96,9 +114,7 @@
   .about-panel {
     width: 95%;
     max-width: 500px;
-    margin-top: 1rem;
-    padding: 1.5rem;
-    order: 3;
+    padding: 1.25rem;
   }
 
   .mobile-message {
@@ -126,8 +142,7 @@
   .about-panel {
     width: 98%;
     max-width: 400px;
-    padding: 1rem;
-    margin-top: 0.5rem;
+    padding: 0.75rem;
   }
   
   .about-panel h2 {

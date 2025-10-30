@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, type JSX } from "react";
 
 interface Project {
   title: string;
@@ -8,20 +8,58 @@ interface Project {
   image: string;
 }
 
+const projects: Project[] = [
+  {
+    title: "TalentoTech - Ecommerce de Ropa",
+    text: "Plantilla de e-commerce de ropa desarrollada como proyecto final para el bootcamp TalentoTech. Incluye funcionalidades clave como catálogo de productos, carrito de compras, y proceso de pago simulado. Diseñado con un enfoque en la experiencia del usuario y la usabilidad.",
+    url: "https://talentotechjuanmabott.netlify.app",
+    alt: "Portafolio y ejercicios - Proyecto TalentoTech",
+    image: ""
+  }
+];
+
 export function CarouselCustomNavigation(): JSX.Element {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false);
 
-  const projects: Project[] = [
-    
-    {
-      title: "Mapa Galáctico Star Wars",
-      text: "Un detallado mapa galáctico interactivo que muestra los planetas más importantes del universo de Star Wars, sus características principales y las conexiones hiperespaciales entre ellos. Este mapa ofrece información detallada sobre cada mundo, incluyendo su ubicación dentro de la galaxia, su relevancia en la historia, facciones que lo controlan y su relación con otros planetas.",
-      url: "https://juanmabott.github.io/Conquista/",
-      alt: "Mapa Galáctico Star Wars - Proyecto Conquista",
-      image: "./img/Conquista.png"
-    }
-  ];
+  // Estado para las URLs de imagen obtenidas vía Microlink
+  const [images, setImages] = useState<string[]>(() => Array(projects.length).fill(""));
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchImages = async () => {
+      try {
+        const results = await Promise.all(
+          projects.map(async (p) => {
+            try {
+              const res = await fetch(
+                `https://api.microlink.io?url=${encodeURIComponent(p.url)}&screenshot=true&meta=true`
+              );
+              if (!res.ok) return "";
+              const json = await res.json();
+              // Priorizar screenshot (preview); si no existe, usar image (og:image) como fallback
+              const screenshot = json?.data?.screenshot?.url ?? "";
+              const microlinkImage = json?.data?.image?.url ?? "";
+              return (screenshot || microlinkImage) as string;
+            } catch (err) {
+              return "";
+            }
+          })
+        );
+
+        if (mounted) setImages(results);
+      } catch (err) {
+        if (mounted) setImages(Array(projects.length).fill(""));
+      }
+    };
+
+    fetchImages();
+
+    return () => {
+      mounted = false;
+    };
+  }, []); // projects es constante fuera del componente
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % projects.length);
@@ -51,11 +89,11 @@ export function CarouselCustomNavigation(): JSX.Element {
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               <img
-                src={project.image}
+                src={images[index] || project.image || "./img/Conquista.png"}
                 alt={project.alt}
                 className="h-full w-full object-cover"
                 onError={(e) => {
-                  // Fallback to Conquista image if TalentoTech image doesn't exist
+                  // Fallback to Conquista image if Microlink/local image doesn't exist
                   (e.target as HTMLImageElement).src = "./img/Conquista.png";
                 }}
               />
