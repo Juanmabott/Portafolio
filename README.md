@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# Portafolio — Juan Manuel Bottaro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portafolio personal hecho con **React + TypeScript + Vite + Tailwind CSS**.
+El sitio se **pre-renderiza a HTML estático** en el build, así el contenido es
+visible para crawlers, previews de links (LinkedIn, WhatsApp, etc.) y cualquier
+cliente que no ejecute JavaScript. En el navegador, React hidrata ese HTML y
+todo queda interactivo.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install        # instalar dependencias
+npm run dev        # desarrollo con HMR
+npm run build      # tsc + build cliente + build SSR + pre-render
+npm run preview    # previsualizar el build de producción
+npm run lint       # eslint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+`npm run build` encadena cuatro pasos:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. `tsc -b` — chequeo de tipos.
+2. `vite build` — bundle del cliente en `dist/`.
+3. `build:ssr` — compila `src/entry-server.tsx` a `dist-ssr/`.
+4. `prerender` — `scripts/prerender.js` renderiza la app con `react-dom/server`
+   e inyecta el HTML dentro de `<div id="root">` en `dist/index.html`.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Estructura
+
 ```
+src/
+├─ main.tsx              # punto de entrada del cliente (hidrata o monta)
+├─ entry-server.tsx      # render en Node para el pre-render
+├─ App.tsx               # composición de la página (delgado)
+├─ data/                 # contenido separado de la UI
+│  ├─ profile.ts         # nombre, email, redes
+│  ├─ projects.ts        # proyectos del carrusel
+│  └─ skills.ts          # tecnologías + colores por nivel
+├─ components/
+│  ├─ layout/            # Header
+│  ├─ sections/          # Projects, Skills, Contact
+│  ├─ ui/                # AboutPanel, Carousel, ButtonGlassVertical,
+│  │                     # ProfileImage, ModalPortal, Notification
+│  └─ effects/           # Background, Iridescence (WebGL), FireAscii
+└─ styles/               # App.css, index.css
+```
+
+Los datos (proyectos, skills, perfil) viven en `src/data/` para poder
+actualizarlos sin tocar los componentes.
+
+## Deploy
+
+GitHub Actions (`.github/workflows/gh-pages.yml`) corre `npm run build` y
+publica `dist/` en GitHub Pages en cada push a `master`.

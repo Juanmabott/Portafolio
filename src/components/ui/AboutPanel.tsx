@@ -7,22 +7,23 @@ interface AboutPanelProps {
   closePanel: () => void;
 }
 
+const TECHS = ['React', 'TypeScript', 'JavaScript', 'Node.js', 'Tailwind', 'Git'];
+
 const AboutPanel: React.FC<AboutPanelProps> = ({ closePanel }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // open with animation
     setIsOpen(true);
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
-    setTimeout(closePanel, 300); // wait for animation
+    setTimeout(closePanel, 300); // esperar la animación
   };
 
   return (
     <ModalPortal>
-      {/* Backdrop */}
+      {/* Fondo */}
       <div
         className={`about-backdrop ${isOpen ? 'open' : ''}`}
         onClick={handleClose}
@@ -36,16 +37,29 @@ const AboutPanel: React.FC<AboutPanelProps> = ({ closePanel }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="close-button">
-          <ButtonGlassVertical
-            onClick={handleClose}
-            label="×"
-          />
+          <ButtonGlassVertical onClick={handleClose} label="×" />
         </div>
 
         <h2>Sobre Mí</h2>
+
         <div className="about-content">
-          <p>Soy un desarrollador apasionado por crear soluciones web innovadoras y efectivas. Mi experiencia abarca desde el diseño hasta la implementación de aplicaciones web completas.</p>
-          <p>Me especializo en tecnologías front-end como React, TypeScript y CSS avanzado, con conocimientos sólidos en herramientas modernas de desarrollo web.</p>
+          <p>
+            Soy un desarrollador full stack enfocado en construir aplicaciones web
+            modernas, rápidas y cuidadas en el detalle. Me gusta acompañar una idea
+            desde el diseño hasta el deploy.
+          </p>
+          <p>
+            Trabajo principalmente con JavaScript y TypeScript, React y Node, y
+            disfruto aprendiendo herramientas nuevas en cada proyecto.
+          </p>
+
+          <div className="about-tags">
+            {TECHS.map((tech) => (
+              <span key={tech} className="about-tag">
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="mobile-message">

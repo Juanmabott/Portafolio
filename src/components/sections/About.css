@@ -1,0 +1,27 @@
+.about {
+  text-align: left;
+}
+
+.about-text p {
+  margin: 0 0 1rem;
+  line-height: 1.6;
+  font-size: 1.02rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.about-tag {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  color: rgba(180, 225, 255, 0.95);
+  background: rgba(0, 90, 180, 0.25);
+  border: 1px solid rgba(100, 200, 255, 0.25);
+  letter-spacing: 0.3px;
+}

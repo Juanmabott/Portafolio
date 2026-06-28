@@ -23,175 +23,96 @@ body {
   color: #888;
 }
 
-.content-container {
+/* ===== Layout principal ===== */
+.page {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 1rem;
-}
-
-.main-container {
-  display: flex;
-  justify-content: center; /* center the inner layout so portfolio sits centered */
-  align-items: flex-start;
-  width: 100%;
-  gap: 1rem;
-  position: relative;
-  overflow-x: auto;
-}
-
-/* Estilos para FireAscii responsive */
-.main-container > *:first-child {
-  flex-shrink: 0;
-}
-
-/* Coloca el fuego como elemento decorativo fuera del flujo en pantallas md+ */
-.fire-aside {
-  display: block;
-}
-
-/* Make the layout the positioning context so the fire sits left of the content reliably */
-.layout {
-  position: relative;
-}
-
-@media (min-width: 768px) {
-  .layout {
-    /* allow decorative elements to overflow the layout area */
-    overflow: visible;
-  }
-
-  .layout .fire-aside {
-    /* use fixed positioning so the fire sits above background layers and doesn't get clipped
-       positioned relative to the viewport on desktop */
-    position: fixed;
-    left: auto;
-    transform: translateY(-100%);
-    transform: translateX(-100%);
-
-    width: auto;
-    z-index: 999; /* ensure it's above background and content */
-    pointer-events: none; /* decorative only */
-  }
-
-  /* make sure the ASCII <pre> itself is on top inside the aside */
-  .layout .fire-aside pre {
-    position: relative;
-    z-index: 999;
-    pointer-events: none;
-  }
-}
-
-/* Estilos para el portfolio en el centro */
-.main-container > .portfolio {
-  flex: 1;
-  min-width: 600px;
-}
-
-/* Estilos para el panel About a la derecha */
-.main-container > .about-panel {
-  flex-shrink: 0;
-}
-
-@media (max-width: 1200px) {
-  .main-container > .portfolio {
-    min-width: 500px;
-  }
-}
-
-@media (max-width: 1000px) {
-  .main-container > .portfolio {
-    min-width: 450px;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-    align-items: center;
-    overflow-x: visible;
-  }
-  
-  .main-container > .portfolio {
-    min-width: 400px;
-    margin-right: 0;
-    order: 2;
-  }
+  align-items: stretch; /* el panel de proyectos toma la altura del principal */
+  gap: 0;
+  padding: 2rem 1rem;
 }
 
 .portfolio {
-  flex: 1;
-  max-width: 90%;
-  margin-right: 20px;
+  width: 100%;
+  max-width: 1100px;
   position: relative;
-  background: rgba(0, 40, 80, 0.4); /* Color más oscuro y con menos opacidad */
+  background: rgba(0, 40, 80, 0.4);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(0, 100, 255, 0.3); /* Sombra más azulada */
-  border: 1px solid rgba(100, 200, 255, 0.1); /* Borde sutil */
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 100, 255, 0.3);
+  border: 1px solid rgba(100, 200, 255, 0.12);
   z-index: 10;
-  min-width: 600px; /* Aumentado para mejor legibilidad */
-  max-width: 800px;
+  min-width: 0;
+  text-align: left;
 }
 
-@media (max-width: 1200px) {
-  .portfolio {
-    min-width: 500px;
-    margin-right: 10px;
+/* Wrapper interno con el padding (el panel queda como caja de posicionamiento) */
+.portfolio-inner {
+  padding: 2.5rem 2.5rem 3rem;
+}
+
+/* Contenido en dos columnas: Conocimientos (izq) + Proyectos (der) */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .content-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
   }
 }
 
-@media (max-width: 1000px) {
-  .portfolio {
-    min-width: 450px;
-    margin-right: 5px;
-  }
+.content-grid section {
+  margin-bottom: 0;
 }
 
-@media (max-width: 768px) {
-  .portfolio {
-    max-width: 85%;
-    min-width: 400px;
-    margin-right: 0;
-  }
+.content-grid .skills-section {
+  padding: 0;
 }
 
-@media (max-width: 500px) {
-  .portfolio {
-    max-width: 95%;
-    min-width: 350px;
-  }
+.content-grid .skills-container {
+  margin: 0;
+  max-width: none;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 600px) {
   .portfolio {
-    max-width: 100%;
-    min-width: 100%;
-    margin-right: 0;
+    border-radius: 18px;
   }
-}
-
-.about-panel-container {
-  max-width: 0px;
-  position: static;
-  display: flex;
-  flex-direction: column;
-  z-index: 0;
+  .portfolio-inner {
+    padding: 1.5rem 1.25rem 2rem;
+  }
 }
 
 .header {
-  position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin: 5rem 0;
+  margin: 1rem 0 3rem;
+}
+
+/* Bloque centrado: foto + datos. Hace wrap si no entra, para no desbordar el panel. */
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem 2rem;
+}
+
+/* Botón "Sobre Mí" en flujo, debajo de los datos */
+.about-trigger {
+  margin-top: 1.2rem;
 }
 
 .header .header-text {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0;
 }
 
 .header .header-text h1,
@@ -203,36 +124,45 @@ body {
   font-size: 2.5rem;
   font-weight: bold;
   letter-spacing: 1px;
-  text-shadow: 0 0 15px rgba(0, 150, 255, 0.7); /* Añadido resplandor al texto */
+  text-shadow: 0 0 15px rgba(0, 150, 255, 0.7);
 }
 
 .header .header-text p {
   font-size: 1.2rem;
   opacity: 0.8;
   letter-spacing: 1px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .contact-links {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+/* Email + copiar forman un solo pill */
+.email-group {
+  display: flex;
+  align-items: stretch;
 }
 
 .contact-link {
   color: rgba(150, 220, 255, 0.9);
   text-decoration: none;
-  font-size: 0.9rem;
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
+  font-size: 0.85rem;
+  height: 2rem;
+  padding: 0 0.8rem;
+  border-radius: 999px;
   background: rgba(0, 50, 100, 0.2);
   border: 1px solid rgba(100, 200, 255, 0.2);
   transition: all 0.3s ease;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.4rem;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .contact-link:hover {
@@ -244,6 +174,11 @@ body {
   box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
 }
 
+.contact-link.email {
+  border-radius: 999px 0 0 999px;
+  border-right: none;
+}
+
 .contact-link.email:hover {
   background: rgba(255, 140, 0, 0.2);
   border-color: rgba(255, 180, 0, 0.4);
@@ -251,17 +186,43 @@ body {
   box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
 }
 
-.contact-link.email {
-  border-radius: 15px 0 0 15px;
+.copy-button {
+  background: rgba(0, 50, 100, 0.2);
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  border-radius: 0 999px 999px 0;
+  padding: 0;
+  width: 2rem;
   height: 2rem;
-  padding: 0 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
+.copy-button:hover {
+  background: rgba(0, 120, 255, 0.3);
+  border-color: rgba(150, 220, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
+}
+
+.contact-link.linkedin:hover {
+  background: rgba(0, 119, 181, 0.3);
+  border-color: rgba(0, 150, 220, 0.4);
+}
+
+.contact-link.github:hover {
+  background: rgba(88, 96, 105, 0.3);
+  border-color: rgba(130, 140, 150, 0.4);
+}
+
+/* Botón "Enviar correo" de la sección Contacto */
 .contact-link.email-send {
   background: linear-gradient(135deg, rgba(0, 120, 255, 0.3), rgba(0, 80, 200, 0.2));
   border: 2px solid rgba(100, 200, 255, 0.5);
-  border-radius: 25px;
-  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+  height: auto;
+  padding: 0.65rem 1.6rem;
   font-weight: bold;
   font-size: 1rem;
   text-transform: uppercase;
@@ -289,140 +250,45 @@ body {
 .contact-link.email-send:hover {
   background: linear-gradient(135deg, rgba(0, 150, 255, 0.4), rgba(0, 100, 220, 0.3));
   border-color: rgba(150, 220, 255, 0.7);
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-3px) scale(1.04);
   box-shadow: 0 8px 25px rgba(0, 150, 255, 0.6);
   text-shadow: 0 0 10px rgba(150, 220, 255, 0.8);
 }
 
-.contact-link.linkedin:hover {
-  background: rgba(0, 119, 181, 0.3);
-  border-color: rgba(0, 150, 220, 0.4);
-  text-shadow: 0 0 8px rgba(0, 150, 220, 0.6);
-  box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
-}
-
-.contact-link.github:hover {
-  background: rgba(88, 96, 105, 0.3);
-  border-color: rgba(130, 140, 150, 0.4);
-  text-shadow: 0 0 8px rgba(130, 140, 150, 0.6);
-  box-shadow: 0 4px 12px rgba(88, 96, 105, 0.3);
-}
-
-.copy-button {
-  background: rgba(0, 50, 100, 0.2);
-  border: 1px solid rgba(100, 200, 255, 0.2);
-  border-radius: 0 50% 50% 0;
-  padding: 0.3rem;
-  font-size: 0.8rem;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-}
-
-.copy-button:hover {
-  background: rgba(0, 120, 255, 0.3);
-  border-color: rgba(150, 220, 255, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
-}
-
-.header .btn-glass-vertical {
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-  z-index: 25;
-}
-
-@media (max-width: 1200px) {
-  .header .btn-glass-vertical {
-    right: 0.5rem;
-  }
-}
-
+/* Tablet / mobile: foto arriba, datos debajo, todo centrado */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
-    margin: 2rem 0;
-    position: relative;
+    margin: 2rem 0 3rem;
+    padding-top: 0;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    gap: 1.25rem;
   }
 
   .header .header-text {
-    margin-left: 0;
-    margin-top: 0;
+    align-items: center;
     text-align: center;
   }
 
   .contact-links {
-    flex-direction: row;
-    gap: 0.6rem;
-    flex-wrap: wrap;
     justify-content: center;
   }
 
-  .contact-link {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-  }
-
-  .header .btn-glass-vertical {
-    position: static;
-    margin: 1.5rem auto 0 auto;
-    transform: none;
-    display: flex;
-    align-self: center;
+  .about-trigger {
+    margin-top: 1.2rem;
   }
 }
 
 @media (max-width: 500px) {
-  .header {
-    flex-direction: column;
-    margin: 1.5rem 0;
-  }
-
-  .header .header-text {
-    margin-left: 0;
-    margin-top: 0;
-    text-align: center;
-  }
-
   .header .header-text h1 {
     font-size: 2rem;
   }
 
   .header .header-text p {
     font-size: 1rem;
-  }
-
-  .contact-links {
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .contact-link {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.4rem;
-    width: fit-content;
-  }
-
-  .header .btn-glass-vertical {
-    position: static;
-    margin: 1rem auto 0 auto;
-    transform: none;
-    display: flex;
-    align-self: center;
-    justify-self: center;
-  }
-}
-
-@media (max-width: 420px) {
-  .header .btn-glass-vertical {
-    margin: 1rem auto 0 auto;
-    width: fit-content;
-    align-self: center;
   }
 }
 
@@ -438,6 +304,25 @@ section h2 {
   letter-spacing: 1px;
 }
 
+/* Pilar derecho de proyectos (solo en desktop ancho) */
+@media (min-width: 1024px) {
+  .projects-aside {
+    max-width: 340px;
+    position: sticky;
+    top: 1.5rem;
+    align-self: flex-start;
+  }
+
+  .projects-aside .projects {
+    margin-bottom: 0;
+  }
+
+  .projects-aside .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -445,17 +330,88 @@ section h2 {
 }
 
 .project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
   padding: 1.5rem;
-  border: 1px solid rgba(100, 200, 255, 0.2); /* Borde más azulado */
-  background: rgba(0, 50, 100, 0.2); /* Fondo más azulado */
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  background: rgba(0, 50, 100, 0.2);
   backdrop-filter: blur(5px);
-  border-radius: 8px;
-  transition: transform 0.2s, box-shadow 0.3s;
+  border-radius: 14px;
+  transition: transform 0.2s, box-shadow 0.3s, border-color 0.3s;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 150, 255, 0.3); /* Sombra al hacer hover */
+  border-color: rgba(150, 220, 255, 0.4);
+  box-shadow: 0 8px 22px rgba(0, 150, 255, 0.3);
+}
+
+.project-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
+}
+
+.project-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-tag {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  color: rgba(180, 225, 255, 0.95);
+  background: rgba(0, 90, 180, 0.25);
+  border: 1px solid rgba(100, 200, 255, 0.25);
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 0.3rem;
+}
+
+.project-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.project-link.demo {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(0, 120, 255, 0.35), rgba(0, 80, 200, 0.25));
+  border: 1px solid rgba(100, 200, 255, 0.5);
+}
+
+.project-link.repo {
+  color: rgba(180, 225, 255, 0.95);
+  background: rgba(0, 50, 100, 0.25);
+  border: 1px solid rgba(100, 200, 255, 0.25);
+}
+
+.project-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 150, 255, 0.3);
 }
 
 .skills ul {
@@ -475,36 +431,6 @@ section h2 {
 
 .contact {
   text-align: center;
-}
-
-.profile-image {
-  width: 100%;
-  max-width: 200px;
-  height: auto;
-  margin: -5rem 1rem 0 -15rem; /* space to the right so name sits next to image */
-  border-radius: 15%;
-  border: 5px solid rgba(0, 150, 255, 0.4);
-  overflow: hidden;
-  position: static;
-  transform: none;
-  box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
-  align-self: center; /* center vertically inside header flex */
-}
-
-.profile-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: flex;
-  align-items: center;
-}
-
-@media (max-width: 768px) {
-  .profile-image {
-    position: static;
-    margin-bottom: 1rem;
-    transform: none;
-  }
 }
 
 .contact-section {
@@ -581,6 +507,61 @@ section h2 {
   background: rgba(0, 150, 255, 0.8);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 150, 255, 0.3);
+}
+
+.skills-heading {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 12px rgba(0, 150, 255, 0.5);
+  letter-spacing: 1px;
+}
+
+.skills-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.skill-category-title {
+  margin: 0 0 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(150, 220, 255, 0.85);
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: rgba(225, 242, 255, 0.95);
+  background: rgba(0, 50, 100, 0.28);
+  border: 1px solid rgba(100, 200, 255, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.skill-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(150, 220, 255, 0.45);
+  box-shadow: 0 4px 12px rgba(0, 150, 255, 0.25);
+}
+
+.skill-chip img {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .skills-section {
@@ -677,3 +658,8 @@ section h2 {
 
 
 
+
+/* El fuego ASCII se oculta en pantallas muy chicas (antes via window.innerWidth) */
+@media (max-width: 420px) {
+  .fire-ascii { display: none;  }
+}
