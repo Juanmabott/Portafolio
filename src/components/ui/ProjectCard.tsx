@@ -1,5 +1,6 @@
 import type { Project } from "../../data/projects";
 import { useLang } from "../../i18n/context";
+import { tx } from "../../i18n/lang";
 import { ExternalLinkIcon, GitHubIcon } from "./icons";
 import "./ProjectCard.css";
 
@@ -9,7 +10,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
   return (
     <article className="project-card">
-      {context && <p className="project-context">{context}</p>}
+      {context && <p className="project-context">{tx(context, lang)}</p>}
       <h3 className="project-title">{title[lang]}</h3>
       <p className="project-summary">{summary[lang]}</p>
 

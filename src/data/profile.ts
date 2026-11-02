@@ -30,7 +30,7 @@ export const profile: Profile = {
   email: "bottaro.juanmanuel@hotmail.com",
   linkedin: "https://www.linkedin.com/in/juan-manuel-bottaro",
   github: "https://github.com/Juanmabott",
-  cv: { es: "", en: "" },
+  cv: { es: "cv/Juan-Manuel-Bottaro-CV-ES.pdf", en: "cv/Juan-Manuel-Bottaro-CV-EN.pdf" },
   photo: "img/pfp.webp",
 };
 

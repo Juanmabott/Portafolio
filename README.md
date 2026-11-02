@@ -47,10 +47,10 @@ cambian según el idioma usan la forma `{ es: "...", en: "..." }`.
 Los textos de la interfaz (botones, títulos, meta description) están en
 `src/i18n/ui.ts`.
 
-- **CV**: copiá el PDF en `public/` (por ejemplo `public/cv/juan-manuel-bottaro-cv.pdf`)
-  y poné la ruta en `profile.cv` (`{ es: "cv/juan-manuel-bottaro-cv.pdf", en: "" }`).
-  El botón "Descargar CV" aparece solo cuando hay una ruta; si falta la versión en
-  inglés, se usa la de español.
+- **CV**: están en `public/cv/` (`Juan-Manuel-Bottaro-CV-ES.pdf` y
+  `Juan-Manuel-Bottaro-CV-EN.pdf`); para actualizarlos, reemplazá esos archivos. Las
+  rutas se configuran en `profile.cv`: el botón "Descargar CV" aparece solo cuando hay
+  una ruta y, si falta la versión en inglés, se usa la de español.
 - **Imágenes para compartir**: `public/og-image.jpg` (español) y
   `public/og-image-en.jpg` (inglés), de 1200×630. Si cambiás tu rol o tu foto,
   reemplazalas por otras del mismo tamaño.

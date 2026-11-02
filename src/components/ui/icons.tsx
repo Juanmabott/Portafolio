@@ -107,6 +107,13 @@ export const GraduationCapIcon = (props: IconProps) => (
   </StrokeIcon>
 );
 
+export const AwardIcon = (props: IconProps) => (
+  <StrokeIcon {...props}>
+    <circle cx="12" cy="9" r="6" />
+    <path d="m8.5 13.8-1.5 7.2 5-3 5 3-1.5-7.2" />
+  </StrokeIcon>
+);
+
 export const ArrowRightIcon = (props: IconProps) => (
   <StrokeIcon {...props}>
     <path d="M5 12h14" />

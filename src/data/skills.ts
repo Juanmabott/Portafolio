@@ -18,6 +18,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "TypeScript", icon: "typescript" },
       { name: "JavaScript", icon: "javascript" },
+      { name: "SQL" },
     ],
   },
   {
@@ -28,6 +29,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "HTML", icon: "html5" },
       { name: "CSS", icon: "css3" },
       { name: "Tailwind", icon: "tailwindcss" },
+      { name: "Vite", icon: "vitejs" },
+      { name: "Storybook", icon: "storybook" },
     ],
   },
   {
@@ -35,6 +38,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Node.js", icon: "nodejs" },
       { name: "NestJS", icon: "nestjs" },
+      { name: "Express", icon: "express" },
       { name: { es: "APIs REST", en: "REST APIs" } },
     ],
   },
@@ -50,6 +54,9 @@ export const skillCategories: SkillCategory[] = [
     title: { es: "DevOps y herramientas", en: "DevOps & tools" },
     skills: [
       { name: "Docker", icon: "docker" },
+      { name: "Docker Compose" },
+      { name: "Nginx" },
+      { name: "Linux" },
       { name: "Git", icon: "git" },
       { name: "GitHub Actions", icon: "githubactions" },
       { name: "pnpm Workspaces", icon: "pnpm" },
@@ -60,6 +67,8 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Jest", icon: "jest" },
       { name: "Vitest", icon: "vitest" },
+      { name: "Supertest" },
+      { name: "Testing Library" },
       { name: "Zod" },
     ],
   },
@@ -67,6 +76,7 @@ export const skillCategories: SkillCategory[] = [
     title: { es: "Arquitectura y metodologías", en: "Architecture & practices" },
     skills: [
       { name: "Clean Architecture" },
+      { name: "TDD" },
       { name: { es: "Patrón Repository", en: "Repository pattern" } },
       { name: "Monorepos" },
       { name: "JWT / OAuth 2.0" },

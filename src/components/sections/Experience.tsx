@@ -1,7 +1,13 @@
-import { experience } from "../../data/experience";
+import { experience, type ExperienceItem } from "../../data/experience";
 import { useLang } from "../../i18n/context";
-import { BriefcaseIcon, GraduationCapIcon } from "../ui/icons";
+import { AwardIcon, BriefcaseIcon, ExternalLinkIcon, GraduationCapIcon } from "../ui/icons";
 import "./Experience.css";
+
+const ICONS: Record<ExperienceItem["kind"], typeof BriefcaseIcon> = {
+  work: BriefcaseIcon,
+  education: GraduationCapIcon,
+  certification: AwardIcon,
+};
 
 const Experience = () => {
   const { lang, t } = useLang();
@@ -15,24 +21,34 @@ const Experience = () => {
       </h2>
 
       <ol className="timeline">
-        {experience.map((item) => (
-          <li key={`${item.org}-${item.title.es}`} className="timeline-item">
-            <span className="timeline-icon" aria-hidden="true">
-              {item.kind === "work" ? <BriefcaseIcon /> : <GraduationCapIcon />}
-            </span>
-            <div className="timeline-body">
-              <div className="timeline-head">
-                <h3 className="timeline-title">{item.title[lang]}</h3>
-                {item.period && <span className="timeline-period">{item.period[lang]}</span>}
+        {experience.map((item) => {
+          const Icon = ICONS[item.kind];
+          return (
+            <li key={`${item.org}-${item.title.es}`} className="timeline-item">
+              <span className="timeline-icon" aria-hidden="true">
+                <Icon />
+              </span>
+              <div className="timeline-body">
+                <div className="timeline-head">
+                  <h3 className="timeline-title">{item.title[lang]}</h3>
+                  {item.period && <span className="timeline-period">{item.period[lang]}</span>}
+                </div>
+                <p className="timeline-org">
+                  <span className="sr-only">{t.experience[item.kind]}: </span>
+                  {item.org}
+                </p>
+                {item.description && <p className="timeline-desc">{item.description[lang]}</p>}
+                {item.link && (
+                  <a className="timeline-link" href={item.link} target="_blank" rel="noopener noreferrer">
+                    {t.experience.credential}
+                    <ExternalLinkIcon />
+                    <span className="sr-only"> {t.links.newTab}</span>
+                  </a>
+                )}
               </div>
-              <p className="timeline-org">
-                <span className="sr-only">{t.experience[item.kind]}: </span>
-                {item.org}
-              </p>
-              {item.description && <p className="timeline-desc">{item.description[lang]}</p>}
-            </div>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ol>
     </section>
   );

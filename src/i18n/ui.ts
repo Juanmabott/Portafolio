@@ -40,6 +40,8 @@ const es = {
   experience: {
     work: "Trabajo",
     education: "Formación",
+    certification: "Certificación",
+    credential: "Ver credencial",
   },
   projects: {
     demo: "Ver demo",
@@ -101,6 +103,8 @@ const en: UiStrings = {
   experience: {
     work: "Work",
     education: "Education",
+    certification: "Certification",
+    credential: "View credential",
   },
   projects: {
     demo: "Live demo",
