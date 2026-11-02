@@ -3,12 +3,11 @@ interface NotificationProps {
   message: string;
 }
 
+/** Toast breve. La región `status` queda siempre montada para que los lectores de pantalla la anuncien. */
 const Notification = ({ show, message }: NotificationProps) => {
-  if (!show) return null;
-
   return (
-    <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-[200] animate-fade-in">
-      {message}
+    <div className={`toast ${show ? "is-visible" : ""}`} role="status" aria-live="polite">
+      {show ? message : ""}
     </div>
   );
 };

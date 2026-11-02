@@ -47,29 +47,46 @@ void main() {
 }
 `;
 
+type RGB = readonly [number, number, number];
+
 interface IridescenceProps {
-  color?: [number, number, number];
+  color?: RGB;
   speed?: number;
   amplitude?: number;
   mouseReact?: boolean;
+  /**
+   * Resolución interna respecto del tamaño en pantalla. El efecto es un degradé suave,
+   * así que a 0.5 se ve igual y la GPU procesa 4 veces menos píxeles.
+   */
+  resolution?: number;
 }
 
+const DEFAULT_COLOR: RGB = [0, 0.5, 1];
+
 export default function Iridescence({
-  color = [0, 0.5, 1],
+  color = DEFAULT_COLOR,
   speed = 1.0,
   amplitude = 0.1,
   mouseReact = true,
-  ...rest
+  resolution = 0.5,
 }: IridescenceProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
-  const mousePos = useRef({ x: 0.5, y: 0.5 });
+  // Dependencias primitivas: un array nuevo con los mismos valores no reinicia WebGL.
+  const [r, g, b] = color;
 
   useEffect(() => {
-    if (!ctnDom.current) return;
     const ctn = ctnDom.current;
-    const renderer = new Renderer();
+    if (!ctn) return;
+
+    let renderer: Renderer;
+    try {
+      renderer = new Renderer({ dpr: resolution });
+    } catch {
+      // Sin WebGL: queda el degradé CSS de fondo.
+      return;
+    }
     const gl = renderer.gl;
-    gl.clearColor(1, 1, 1, 1);
+    gl.clearColor(0, 0, 0, 1);
 
     const geometry = new Triangle(gl);
     const program = new Program(gl, {
@@ -77,71 +94,67 @@ export default function Iridescence({
       fragment: fragmentShader,
       uniforms: {
         uTime: { value: 0 },
-        uColor: { value: new Color(...color) },
+        uColor: { value: new Color(r, g, b) },
         uResolution: {
-          value: new Color(
-            gl.canvas.width,
-            gl.canvas.height,
-            gl.canvas.width / gl.canvas.height
-          ),
+          value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height),
         },
-        uMouse: { value: new Float32Array([mousePos.current.x, mousePos.current.y]) },
+        uMouse: { value: new Float32Array([0.5, 0.5]) },
         uAmplitude: { value: amplitude },
         uSpeed: { value: speed },
       },
     });
+    const mesh = new Mesh(gl, { geometry, program });
+    const draw = () => renderer.render({ scene: mesh });
 
-    function resize() {
-      const scale = 1;
-      renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
+    // Con "reducir movimiento" se dibuja un único frame estático.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const resize = () => {
+      renderer.setSize(ctn.offsetWidth, ctn.offsetHeight);
       program.uniforms.uResolution.value = new Color(
         gl.canvas.width,
         gl.canvas.height,
         gl.canvas.width / gl.canvas.height
       );
-    }
-    window.addEventListener("resize", resize, false);
+      if (reduceMotion) draw();
+    };
+    window.addEventListener("resize", resize);
     resize();
 
-    const mesh = new Mesh(gl, { geometry, program });
-    let animateId: number;
-
-    function update(t: number) {
+    let animateId = 0;
+    if (reduceMotion) {
+      program.uniforms.uTime.value = 10;
+      draw();
+    } else {
+      const update = (t: number) => {
+        animateId = requestAnimationFrame(update);
+        program.uniforms.uTime.value = t * 0.001;
+        draw();
+      };
       animateId = requestAnimationFrame(update);
-      program.uniforms.uTime.value = t * 0.001;
-      renderer.render({ scene: mesh });
     }
-    animateId = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
 
-    function handleMouseMove(e: MouseEvent) {
-      const rect = ctn.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height;
-      mousePos.current = { x, y };
-      program.uniforms.uMouse.value[0] = x;
-      program.uniforms.uMouse.value[1] = y;
-    }
-    if (mouseReact) {
-      ctn.addEventListener("mousemove", handleMouseMove);
+    // El contenedor queda detrás del contenido, así que el puntero se escucha en window.
+    const trackPointer = mouseReact && !reduceMotion;
+    const handlePointerMove = (e: PointerEvent) => {
+      program.uniforms.uMouse.value[0] = e.clientX / window.innerWidth;
+      program.uniforms.uMouse.value[1] = 1.0 - e.clientY / window.innerHeight;
+    };
+    if (trackPointer) {
+      window.addEventListener("pointermove", handlePointerMove, { passive: true });
     }
 
     return () => {
       cancelAnimationFrame(animateId);
       window.removeEventListener("resize", resize);
-      if (mouseReact) {
-        ctn.removeEventListener("mousemove", handleMouseMove);
+      if (trackPointer) {
+        window.removeEventListener("pointermove", handlePointerMove);
       }
       ctn.removeChild(gl.canvas);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [color, speed, amplitude, mouseReact]);
+  }, [r, g, b, speed, amplitude, mouseReact, resolution]);
 
-  return (
-    <div
-      ref={ctnDom}
-      className="iridescence-container"
-      {...rest}
-    />
-  );
+  return <div ref={ctnDom} className="iridescence-container" />;
 }

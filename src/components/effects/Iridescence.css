@@ -2,3 +2,15 @@
   width: 100%;
   height: 100%;
 }
+
+/* Aparece suave sobre el degradé de respaldo cuando WebGL arranca */
+.iridescence-container canvas {
+  display: block;
+  animation: iridescence-in 0.9s ease both;
+}
+
+@keyframes iridescence-in {
+  from {
+    opacity: 0;
+  }
+}

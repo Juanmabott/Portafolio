@@ -1,16 +1,21 @@
 # Portafolio — Juan Manuel Bottaro
 
-Portafolio personal hecho con **React + TypeScript + Vite + Tailwind CSS**.
-El sitio se **pre-renderiza a HTML estático** en el build, así el contenido es
-visible para crawlers, previews de links (LinkedIn, WhatsApp, etc.) y cualquier
-cliente que no ejecute JavaScript. En el navegador, React hidrata ese HTML y
-todo queda interactivo.
+Portafolio personal hecho con **React + TypeScript + Vite + Tailwind CSS**, en
+español e inglés.
+
+- Español: <https://juanmabott.github.io/Portafolio/>
+- Inglés: <https://juanmabott.github.io/Portafolio/en/>
+
+El sitio se **pre-renderiza a HTML estático** en el build (una página por idioma),
+así el contenido es visible para crawlers, previews de links (LinkedIn, WhatsApp,
+etc.) y cualquier cliente que no ejecute JavaScript. En el navegador, React hidrata
+ese HTML y todo queda interactivo.
 
 ## Scripts
 
 ```bash
-npm install        # instalar dependencias
-npm run dev        # desarrollo con HMR
+npm install        # instalar dependencias (Node >= 20.19)
+npm run dev        # desarrollo con HMR (/Portafolio/ y /Portafolio/en/)
 npm run build      # tsc + build cliente + build SSR + pre-render
 npm run preview    # previsualizar el build de producción
 npm run lint       # eslint
@@ -21,8 +26,35 @@ npm run lint       # eslint
 1. `tsc -b` — chequeo de tipos.
 2. `vite build` — bundle del cliente en `dist/`.
 3. `build:ssr` — compila `src/entry-server.tsx` a `dist-ssr/`.
-4. `prerender` — `scripts/prerender.js` renderiza la app con `react-dom/server`
-   e inyecta el HTML dentro de `<div id="root">` en `dist/index.html`.
+4. `prerender` — `scripts/prerender.js` renderiza la app con `react-dom/server` para
+   cada idioma, inyecta el `<head>` (SEO + Open Graph) y escribe `dist/index.html`
+   (español) y `dist/en/index.html` (inglés).
+
+## Editar el contenido
+
+Todo el contenido vive en `src/data/`, separado de los componentes. Los textos que
+cambian según el idioma usan la forma `{ es: "...", en: "..." }`.
+
+| Archivo | Qué tiene |
+| --- | --- |
+| `profile.ts` | Nombre, rol, stack, disponibilidad, email, redes, CV y foto |
+| `about.ts` | Párrafos de "Sobre mí" |
+| `experience.ts` | Experiencia y formación (si queda vacío, la sección se oculta) |
+| `projects.ts` | Proyectos: resumen, logros, tecnologías y links (`demo` / `repo`) |
+| `skills.ts` | Conocimientos del panel lateral (íconos en `public/icons/skills/`) |
+| `site.ts` | URL pública, repo e imágenes para compartir |
+
+Los textos de la interfaz (botones, títulos, meta description) están en
+`src/i18n/ui.ts`.
+
+- **CV**: están en `public/cv/` (`Juan-Manuel-Bottaro-CV-ES.pdf` y
+  `Juan-Manuel-Bottaro-CV-EN.pdf`); para actualizarlos, reemplazá esos archivos. Las
+  rutas se configuran en `profile.cv`: el botón "Descargar CV" aparece solo cuando hay
+  una ruta y, si falta la versión en inglés, se usa la de español.
+- **Imágenes para compartir**: `public/og-image.jpg` (español) y
+  `public/og-image-en.jpg` (inglés), de 1200×630. Si cambiás tu rol o tu foto,
+  reemplazalas por otras del mismo tamaño.
+- **Foto de perfil**: `public/img/pfp.webp`, cuadrada (400×400 alcanza).
 
 ## Estructura
 
@@ -30,24 +62,27 @@ npm run lint       # eslint
 src/
 ├─ main.tsx              # punto de entrada del cliente (hidrata o monta)
 ├─ entry-server.tsx      # render en Node para el pre-render
-├─ App.tsx               # composición de la página (delgado)
-├─ data/                 # contenido separado de la UI
-│  ├─ profile.ts         # nombre, email, redes
-│  ├─ projects.ts        # proyectos del carrusel
-│  └─ skills.ts          # tecnologías + colores por nivel
+├─ seo.ts                # <head> por idioma: meta, Open Graph, hreflang, JSON-LD
+├─ App.tsx               # composición de la página
+├─ data/                 # contenido (ver tabla de arriba)
+├─ i18n/                 # idioma: tipos, textos de UI, contexto y provider
+├─ hooks/                # useActiveSection (link activo de la navegación)
 ├─ components/
-│  ├─ layout/            # Header
-│  ├─ sections/          # Projects, Skills, Contact
-│  ├─ ui/                # AboutPanel, Carousel, ButtonGlassVertical,
-│  │                     # ProfileImage, ModalPortal, Notification
-│  └─ effects/           # Background, Iridescence (WebGL), FireAscii
-└─ styles/               # App.css, index.css
+│  ├─ layout/            # Nav, Header (hero), Footer
+│  ├─ sections/          # About, Experience, Projects, Contact
+│  ├─ ui/                # SideDrawer, SkillsList, ProjectCard, EmailActions,
+│  │                     # LanguageToggle, ProfileImage, Notification, icons
+│  └─ effects/           # Background + Iridescence (shader WebGL)
+└─ styles/               # index.css (tokens y base), App.css (layout y componentes)
 ```
-
-Los datos (proyectos, skills, perfil) viven en `src/data/` para poder
-actualizarlos sin tocar los componentes.
 
 ## Deploy
 
-GitHub Actions (`.github/workflows/gh-pages.yml`) corre `npm run build` y
-publica `dist/` en GitHub Pages en cada push a `master`.
+GitHub Actions (`.github/workflows/gh-pages.yml`) corre `npm run lint` y
+`npm run build`, y publica `dist/` en la rama `gh-pages` en cada push a `master`.
+En los pull requests a `master` solo valida lint y build.
+
+## Créditos
+
+Íconos de tecnologías: [devicon](https://github.com/devicons/devicon) (MIT, ver
+`public/icons/skills/LICENSE-devicon.txt`). Tipografía: Space Grotesk (OFL).
