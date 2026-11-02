@@ -1,11 +1,12 @@
-/* Marcapáginas pegado a un borde del panel principal */
+/* Marcapáginas pegado a un borde del panel principal (desktop) */
 .bookmarks {
   position: absolute;
-  top: 2.5rem;
+  top: 6rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   z-index: 30;
+  transition: opacity 0.2s ease;
 }
 
 .bookmarks.right {
@@ -20,19 +21,33 @@
   align-items: flex-end;
 }
 
+.bookmarks.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .bookmark-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   writing-mode: vertical-rl;
-  text-orientation: mixed;
-  padding: 1.1rem 0.55rem;
-  background: rgba(0, 100, 200, 0.4);
-  color: #fff;
+  padding: 1.1rem 0.6rem;
+  font: inherit;
   font-weight: 700;
   letter-spacing: 1.5px;
-  border: 1px solid rgba(100, 200, 255, 0.35);
-  box-shadow: 4px 4px 16px rgba(0, 150, 255, 0.3);
+  color: #fff;
+  background: rgba(0, 100, 200, 0.45);
+  border: 1px solid rgba(100, 200, 255, 0.4);
+  box-shadow: 4px 4px 16px rgba(var(--accent-rgb), 0.3);
   backdrop-filter: blur(6px);
   cursor: pointer;
-  transition: background 0.25s ease, padding 0.25s ease;
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.bookmark-tab svg {
+  font-size: 1.1rem;
 }
 
 .bookmarks.right .bookmark-tab {
@@ -43,29 +58,41 @@
 .bookmarks.left .bookmark-tab {
   border-right: none;
   border-radius: 14px 0 0 14px;
-  box-shadow: -4px 4px 16px rgba(0, 150, 255, 0.3);
+  box-shadow: -4px 4px 16px rgba(var(--accent-rgb), 0.3);
 }
 
 .bookmark-tab:hover {
-  background: rgba(0, 150, 255, 0.55);
+  background: rgba(0, 150, 255, 0.6);
+  box-shadow: -4px 4px 22px rgba(var(--accent-rgb), 0.5);
 }
 
-/* Columna desplegable: hermana del panel, misma altura (align-items:stretch del .page) */
+/* Columna desplegable: hermana del panel, misma altura (align-items: stretch del .page).
+   overflow: clip (no hidden) para que el contenido sticky siga funcionando. */
 .side-drawer {
   flex: 0 0 0px;
+  min-width: 0;
   align-self: stretch;
   position: relative;
-  overflow: hidden;
+  display: flex;
+  overflow: clip;
   opacity: 0;
-  pointer-events: none;
-  transition: flex-basis 0.34s cubic-bezier(0.2, 0.9, 0.2, 1),
-    opacity 0.3s ease, margin 0.34s ease;
+  visibility: hidden;
+  transition:
+    flex-basis 0.34s var(--ease-out),
+    opacity 0.3s ease,
+    margin 0.34s ease,
+    visibility 0s linear 0.34s;
 }
 
 .side-drawer.open {
-  flex: 0 0 420px;
+  flex-basis: 420px;
   opacity: 1;
-  pointer-events: auto;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.side-drawer.side-right {
+  justify-content: flex-end;
 }
 
 .side-drawer.side-right.open {
@@ -76,43 +103,38 @@
   margin-right: 1rem;
 }
 
+/* Se queda a la vista mientras scrolleás */
 .drawer-fill {
-  position: absolute;
-  top: 0;
+  position: sticky;
+  top: 1rem;
+  flex: 0 0 420px;
+  align-self: flex-start;
   width: 420px;
-  /* Altura automática segun el contenido, sin pasar del alto del panel */
-  max-height: 100%;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
   display: flex;
   flex-direction: column;
-  background: rgba(2, 26, 52, 0.97);
+  background: var(--bg-elevated);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(100, 200, 255, 0.18);
   border-radius: 22px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
-.side-right .drawer-fill {
-  right: 0;
-}
-
-.side-left .drawer-fill {
-  left: 0;
-}
-
 .drawer-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 1.5rem 1rem;
+  padding: 1.4rem 1.5rem 1rem;
   border-bottom: 1px solid rgba(100, 200, 255, 0.12);
   flex-shrink: 0;
 }
 
 .drawer-head h2 {
   margin: 0;
+  font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 700;
-  text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
 }
 
 /* Botón cerrar: círculo neutro con × centrada, rojo al hover */
@@ -120,16 +142,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.1rem;
+  height: 2.1rem;
   padding: 0;
   border-radius: 50%;
+  font-size: 1rem;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .drawer-close:hover {
@@ -140,42 +166,87 @@
 
 .drawer-body {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-  padding: 1.25rem 1.5rem 2rem;
+  min-height: 0;
+  padding: 1.25rem 1.5rem 1.75rem;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .drawer-body::-webkit-scrollbar {
   width: 6px;
 }
+
 .drawer-body::-webkit-scrollbar-thumb {
   background-color: rgba(0, 120, 255, 0.4);
   border-radius: 10px;
 }
 
-/* En pantallas chicas: overlay fijo al borde */
+/* Fondo oscuro detrás del panel: solo en mobile */
+.drawer-backdrop {
+  display: none;
+}
+
+/* Pantallas chicas: overlay que entra desde el borde */
 @media (max-width: 820px) {
+  .bookmarks {
+    display: none;
+  }
+
+  .side-drawer,
   .side-drawer.open {
     position: fixed;
     top: 0;
     bottom: 0;
-    flex: none;
-    width: min(420px, 90vw);
-    margin: 0;
-    z-index: 300;
-  }
-  .side-drawer.side-right.open {
-    right: 0;
-    left: auto;
-  }
-  .side-drawer.side-left.open {
     left: 0;
-    right: auto;
+    z-index: 300;
+    width: min(420px, 88vw);
+    flex: none;
+    margin: 0;
+    opacity: 1;
+    transform: translateX(-100%);
+    transition:
+      transform 0.32s var(--ease-out),
+      visibility 0s linear 0.32s;
   }
-  .side-drawer.open .drawer-fill {
+
+  .side-drawer.side-right,
+  .side-drawer.side-right.open {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  .side-drawer.open,
+  .side-drawer.side-right.open {
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .drawer-fill {
+    position: relative;
+    top: 0;
+    flex: 1 1 auto;
+    align-self: stretch;
     width: 100%;
+    max-height: none;
     border-radius: 0;
+    border-width: 0 1px 0 0;
+  }
+
+  .drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 290;
+    background: rgba(0, 8, 20, 0.6);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .drawer-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
   }
 }

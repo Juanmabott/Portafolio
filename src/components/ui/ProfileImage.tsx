@@ -1,12 +1,16 @@
-import React from 'react';
-import './ProfileImage.css';
+import { profile } from "../../data/profile";
+import "./ProfileImage.css";
 
-const ProfileImage: React.FC = () => {
+const ProfileImage = ({ alt }: { alt: string }) => {
   return (
-    <div className="profile-image-container">
-      <div className="profile-image">
-        <img src="./img/pfp.jpg" alt="Foto de perfil" />
-      </div>
+    <div className="profile-image">
+      <img
+        src={`${import.meta.env.BASE_URL}${profile.photo}`}
+        alt={alt}
+        width={400}
+        height={400}
+        decoding="async"
+      />
     </div>
   );
 };

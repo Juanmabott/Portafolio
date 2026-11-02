@@ -1,76 +1,76 @@
+import type { Localized } from "../i18n/lang";
+
 export interface Skill {
-  name: string;
-  /** Ícono opcional (devicon / vectorlogo). Si no hay, se muestra solo el nombre. */
-  img?: string;
+  /** Texto plano si no hace falta traducirlo. */
+  name: string | Localized;
+  /** Ícono en `public/icons/skills/` (sin extensión). Si no hay, se muestra solo el nombre. */
+  icon?: string;
 }
 
 export interface SkillCategory {
-  title: string;
+  title: Localized;
   skills: Skill[];
 }
 
-const dv = (slug: string) =>
-  `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${slug}.svg`;
-
 export const skillCategories: SkillCategory[] = [
   {
-    title: "Lenguajes",
+    title: { es: "Lenguajes", en: "Languages" },
     skills: [
-      { name: "TypeScript", img: dv("typescript/typescript-original") },
-      { name: "JavaScript", img: dv("javascript/javascript-original") },
+      { name: "TypeScript", icon: "typescript" },
+      { name: "JavaScript", icon: "javascript" },
     ],
   },
   {
-    title: "Frontend",
+    title: { es: "Frontend", en: "Frontend" },
     skills: [
-      { name: "React", img: dv("react/react-original") },
-      { name: "Next.js" },
-      { name: "HTML", img: dv("html5/html5-original") },
-      { name: "CSS", img: dv("css3/css3-original") },
-      { name: "Tailwind", img: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" },
+      { name: "React", icon: "react" },
+      { name: "Next.js", icon: "nextjs" },
+      { name: "HTML", icon: "html5" },
+      { name: "CSS", icon: "css3" },
+      { name: "Tailwind", icon: "tailwindcss" },
     ],
   },
   {
-    title: "Backend",
+    title: { es: "Backend", en: "Backend" },
     skills: [
-      { name: "Node.js", img: dv("nodejs/nodejs-original") },
-      { name: "NestJS", img: dv("nestjs/nestjs-original") },
-      { name: "APIs REST" },
+      { name: "Node.js", icon: "nodejs" },
+      { name: "NestJS", icon: "nestjs" },
+      { name: { es: "APIs REST", en: "REST APIs" } },
     ],
   },
   {
-    title: "Bases de datos",
+    title: { es: "Bases de datos", en: "Databases" },
     skills: [
-      { name: "PostgreSQL", img: dv("postgresql/postgresql-original") },
-      { name: "MongoDB", img: dv("mongodb/mongodb-original") },
-      { name: "Prisma ORM" },
+      { name: "PostgreSQL", icon: "postgresql" },
+      { name: "MongoDB", icon: "mongodb" },
+      { name: "Prisma ORM", icon: "prisma" },
     ],
   },
   {
-    title: "DevOps y herramientas",
+    title: { es: "DevOps y herramientas", en: "DevOps & tools" },
     skills: [
-      { name: "Docker", img: dv("docker/docker-original") },
-      { name: "Git", img: dv("git/git-original") },
-      { name: "GitHub Actions" },
-      { name: "pnpm Workspaces" },
+      { name: "Docker", icon: "docker" },
+      { name: "Git", icon: "git" },
+      { name: "GitHub Actions", icon: "githubactions" },
+      { name: "pnpm Workspaces", icon: "pnpm" },
     ],
   },
   {
-    title: "Testing y validación",
+    title: { es: "Testing y validación", en: "Testing & validation" },
     skills: [
-      { name: "Jest", img: dv("jest/jest-plain") },
-      { name: "Vitest" },
+      { name: "Jest", icon: "jest" },
+      { name: "Vitest", icon: "vitest" },
       { name: "Zod" },
     ],
   },
   {
-    title: "Arquitectura y metodologías",
+    title: { es: "Arquitectura y metodologías", en: "Architecture & practices" },
     skills: [
       { name: "Clean Architecture" },
-      { name: "Patrón Repository" },
+      { name: { es: "Patrón Repository", en: "Repository pattern" } },
       { name: "Monorepos" },
       { name: "JWT / OAuth 2.0" },
-      { name: "Scrum / Ágil" },
+      { name: { es: "Scrum / Ágil", en: "Scrum / Agile" } },
     ],
   },
 ];

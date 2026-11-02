@@ -1,17 +1,28 @@
 import type { Project } from "../../data/projects";
+import { useLang } from "../../i18n/context";
+import { ExternalLinkIcon, GitHubIcon } from "./icons";
+import "./ProjectCard.css";
 
 const ProjectCard = ({ project }: { project: Project }) => {
-  const { title, description, tech, demo, repo } = project;
+  const { lang, t } = useLang();
+  const { context, title, summary, highlights, tech, demo, repo } = project;
 
   return (
     <article className="project-card">
-      <h3 className="project-title">{title}</h3>
-      <p className="project-desc">{description}</p>
+      {context && <p className="project-context">{context}</p>}
+      <h3 className="project-title">{title[lang]}</h3>
+      <p className="project-summary">{summary[lang]}</p>
 
-      <ul className="project-tech">
-        {tech.map((t) => (
-          <li key={t} className="project-tag">
-            {t}
+      <ul className="project-highlights">
+        {highlights[lang].map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+
+      <ul className="project-tech" aria-label={t.projects.tech}>
+        {tech.map((name) => (
+          <li key={name} className="tag">
+            {name}
           </li>
         ))}
       </ul>
@@ -19,23 +30,23 @@ const ProjectCard = ({ project }: { project: Project }) => {
       {(demo || repo) && (
         <div className="project-links">
           {demo && (
-            <a
-              className="project-link demo"
-              href={demo}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Ver demo ↗
+            <a className="btn btn-primary btn-sm" href={demo} target="_blank" rel="noopener noreferrer">
+              <ExternalLinkIcon />
+              {t.projects.demo}
+              <span className="sr-only">
+                {" "}
+                — {title[lang]} {t.links.newTab}
+              </span>
             </a>
           )}
           {repo && (
-            <a
-              className="project-link repo"
-              href={repo}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Código ↗
+            <a className="btn btn-secondary btn-sm" href={repo} target="_blank" rel="noopener noreferrer">
+              <GitHubIcon />
+              {t.projects.code}
+              <span className="sr-only">
+                {" "}
+                — {title[lang]} {t.links.newTab}
+              </span>
             </a>
           )}
         </div>
